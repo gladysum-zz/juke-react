@@ -68,7 +68,7 @@ export default class extends React.Component {
 
 		const singleAlbumView = <SingleAlbum album={this.state.selectedAlbum} start={this.start} pause = {this.pause} currentSong={this.state.currentSong} isPlaying = {this.state.isPlaying}/>;
 
-		const footerView = <Footer currentSong = {this.state.currentSong} isPlaying = {this.state.isPlaying} start = {this.start} pause = {this.pause} />;
+		const footerView = <Footer album={this.state.selectedAlbum} currentSong = {this.state.currentSong} isPlaying = {this.state.isPlaying} start = {this.start} pause = {this.pause} />;
 
 
 		return ( 

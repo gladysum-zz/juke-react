@@ -23,7 +23,7 @@ export default class extends React.Component {
 				 <tr key={song.id} className={song.id===this.props.currentSong.id ? "active" : null}>
 			        <td>
 			          <button className="btn btn-default btn-xs">
-			            {song.id!==this.props.currentSong.id ? playButton : pauseButton}
+			            {song.id!==this.props.currentSong.id || !this.props.isPlaying ? playButton : pauseButton}
 			          </button>
 			        </td>
 			        <td>{song.name}</td>
