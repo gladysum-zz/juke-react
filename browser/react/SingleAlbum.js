@@ -1,25 +1,21 @@
 import React from 'react';
 
 export default class extends React.Component {
-	constructor(props){
-		super(props);
+	constructor(){
+		super();
 	}
 
 	render() {
 		const album = this.props.album;
-
-		
-
-		const songs = album.songs.map(function(song){
-
-			const artists = song.artists.map(function(artist){
+		const songs = album.songs.map(song => {
+			const artists = song.artists.map(artist => {
 				return artist.name;
 			}).join(", ");
 
 			return(
 				 <tr key={song.id}>
 			        <td>
-			          <button className="btn btn-default btn-xs">
+			          <button className="btn btn-default btn-xs" onClick={() => this.props.start(song)}>
 			            <span className="glyphicon glyphicon-play"></span>
 			          </button>
 			        </td>
@@ -29,8 +25,6 @@ export default class extends React.Component {
 			      </tr>
 			)
 		})
-
-		console.log("songs", songs, "album", album);
 
 		return (
 			<div className="album col-xs-10">
