@@ -11,8 +11,10 @@ export default class extends React.Component {
 
 		this.state = {
 			albums: [],
-			songs: []
-		};	
+			selectedAlbum: {}
+		};
+
+		this.handleClick = this.handleClick.bind(this);	
 	};
 	
 	componentDidMount() {
@@ -25,25 +27,44 @@ export default class extends React.Component {
 			});
 			this.setState({albums: albumsWithImage})
 		})
+	
+	}
 
-		
+	handleClick(album){
+
+		const albumId = album.id;
+
+		axios.get('/api/albums/' + albumId)
+		.then(res => res.data)
+		.then(returnedAlbum => {
+			returnedAlbum.image = `/api/albums/${returnedAlbum.id}/image`;
+			this.setState({selectedAlbum: returnedAlbum});
+		});
+
+
+
 	}
 
 	render() { 
-console.log(this.state.songs);
+
+		const albumsView = <Albums albums={this.state.albums} handleClick={this.handleClick}/>;
+
+		const singleAlbumView = <SingleAlbum album={this.state.selectedAlbum}/>;
+
 		return ( 
 			<div id="main" className="container-fluid">
 
 				<Sidebar /> 
-					 
-				<Albums albums={this.state.albums}/>
 
-				<SingleAlbum />
+				{this.state.selectedAlbum.id ? singleAlbumView : albumsView}
+				
 
 				<Footer />
 			</div>
 		);
 	};
 }
+
+
 
 

@@ -1,12 +1,42 @@
 import React from 'react';
 
 export default class extends React.Component {
+	constructor(props){
+		super(props);
+	}
+
 	render() {
+		const album = this.props.album;
+
+		
+
+		const songs = album.songs.map(function(song){
+
+			const artists = song.artists.map(function(artist){
+				return artist.name;
+			}).join(", ");
+
+			return(
+				 <tr key={song.id}>
+			        <td>
+			          <button className="btn btn-default btn-xs">
+			            <span className="glyphicon glyphicon-play"></span>
+			          </button>
+			        </td>
+			        <td>{song.name}</td>
+			        <td>{artists}</td>
+			        <td>{song.genre}</td>
+			      </tr>
+			)
+		})
+
+		console.log("songs", songs, "album", album);
+
 		return (
 			<div className="album col-xs-10">
 			  <div>
-			    <h3>I SHOULD BE AN ALBUM NAME</h3>
-			    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=IshouldBEanIMAGE&w=300&h=300" className="img-thumbnail" />
+			    <h3>{album.name}</h3>
+			    <img src={album.image} className="img-thumbnail" />
 			  </div>
 			  <table className='table'>
 			    <thead>
@@ -18,29 +48,11 @@ export default class extends React.Component {
 			      </tr>
 			    </thead>
 			    <tbody>
-			      <tr>
-			        <td>
-			          <button className="btn btn-default btn-xs">
-			            <span className="glyphicon glyphicon-play"></span>
-			          </button>
-			        </td>
-			        <td>I SHOULD BE A SONG NAME</td>
-			        <td>I SHOULD BE A STRING OF THIS SONG'S ARTISTS</td>
-			        <td>I SHOULD BE A SONG GENRE</td>
-			      </tr>
-			      <tr>
-			        <td>
-			          <button className="btn btn-default btn-xs">
-			            <span className="glyphicon glyphicon-play"></span>
-			          </button>
-			        </td>
-			        <td>I SHOULD BE ANOTHER SONG NAME</td>
-			        <td>I SHOULD BE A STRING OF THAT SONG'S ARTISTS</td>
-			        <td>I SHOULD BE A SONG GENRE</td>
-			      </tr>
+			    	{songs}
 			    </tbody>
 			  </table>
 			</div>
 		)
 	}
 }
+

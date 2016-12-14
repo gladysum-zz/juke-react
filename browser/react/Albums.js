@@ -8,7 +8,7 @@ export default function Albums(props) {
 
 	const albumTitles = props.albums.map((album) => {return (
 		<div className="col-xs-4" key={album.id}>
-	      <a className="thumbnail" href="#">
+	      <a className="thumbnail" href="#" onClick={() => props.handleClick(album)}>
 	        <img src={album.image} />
 	        <div className="caption">
 	          <h5>
@@ -30,3 +30,4 @@ export default function Albums(props) {
 		</div>
 	)
 }
+
