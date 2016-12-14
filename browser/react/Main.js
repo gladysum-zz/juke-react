@@ -51,8 +51,7 @@ export default class extends React.Component {
 
 	start(song) {
 		this.setState({currentSong: song});
-		console.log(this.state);
-		audio.src = this.state.currentSong.url;
+		audio.src = song.url;
 		audio.load();
 		audio.play();
 	}
@@ -61,7 +60,7 @@ export default class extends React.Component {
 
 		const albumsView = <Albums albums={this.state.albums} handleClick={this.handleClick}/>;
 
-		const singleAlbumView = <SingleAlbum album={this.state.selectedAlbum} start={this.start}/>;
+		const singleAlbumView = <SingleAlbum album={this.state.selectedAlbum} start={this.start} currentSong={this.state.currentSong}/>;
 
 		return ( 
 			<div id="main" className="container-fluid">
