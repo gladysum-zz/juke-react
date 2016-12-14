@@ -8,18 +8,22 @@ export default class extends React.Component {
 	render() {
 		const album = this.props.album;
 
-		const playButton = <span className="glyphicon glyphicon-play"></span>;
-
+		
 		const songs = album.songs.map(song => {
 			const artists = song.artists.map(artist => {
 				return artist.name;
 			}).join(", ");
 
+			const playButton = <span className="glyphicon glyphicon-play" onClick={() => this.props.start(song)}></span>;
+
+			const pauseButton = <span className="glyphicon glyphicon-pause" onClick={this.props.pause}></span>;		
+
+
 			return(
 				 <tr key={song.id} className={song.id===this.props.currentSong.id ? "active" : null}>
 			        <td>
-			          <button className="btn btn-default btn-xs" onClick={() => this.props.start(song)}>
-			            {song.id!==this.props.currentSong.id ? playButton : null}
+			          <button className="btn btn-default btn-xs">
+			            {song.id!==this.props.currentSong.id ? playButton : pauseButton}
 			          </button>
 			        </td>
 			        <td>{song.name}</td>

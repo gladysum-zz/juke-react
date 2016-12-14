@@ -14,13 +14,14 @@ export default class extends React.Component {
 		this.state = {
 			albums: [],
 			selectedAlbum: {},
-			currentSong: {}
+			currentSong: {},
+			isPlaying: false
 		};
 
 		this.handleClick = this.handleClick.bind(this);
 		this.handleAlbumsClick = this.handleAlbumsClick.bind(this);	
 		this.start = this.start.bind(this);
-
+		this.pause = this.pause.bind(this);
 	};
 	
 	componentDidMount() {
@@ -50,17 +51,25 @@ export default class extends React.Component {
 	}
 
 	start(song) {
-		this.setState({currentSong: song});
+		this.setState({currentSong: song, isPlaying: true});
 		audio.src = song.url;
 		audio.load();
 		audio.play();
+	}
+
+	pause() {
+		audio.pause();
+		this.setState({isPlaying: false});
 	}
 
 	render() { 
 
 		const albumsView = <Albums albums={this.state.albums} handleClick={this.handleClick}/>;
 
-		const singleAlbumView = <SingleAlbum album={this.state.selectedAlbum} start={this.start} currentSong={this.state.currentSong}/>;
+		const singleAlbumView = <SingleAlbum album={this.state.selectedAlbum} start={this.start} pause = {this.pause} currentSong={this.state.currentSong} isPlaying = {this.state.isPlaying}/>;
+
+		const footerView = <Footer currentSong = {this.state.currentSong} isPlaying = {this.state.isPlaying} start = {this.start} pause = {this.pause} />;
+
 
 		return ( 
 			<div id="main" className="container-fluid">
@@ -69,8 +78,8 @@ export default class extends React.Component {
 
 				{this.state.selectedAlbum.id ? singleAlbumView : albumsView}
 				
+				{this.state.currentSong.id ? footerView : null}
 
-				<Footer />
 			</div>
 		);
 	};
