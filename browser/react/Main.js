@@ -15,7 +15,8 @@ export default class extends React.Component {
 			albums: [],
 			selectedAlbum: {},
 			currentSong: {},
-			isPlaying: false
+			isPlaying: false,
+			progress: 0
 		};
 
 		this.handleClick = this.handleClick.bind(this);
@@ -33,7 +34,13 @@ export default class extends React.Component {
 				return album;
 			});
 			this.setState({albums: albumsWithImage})
-		})	
+		});
+
+		audio.addEventListener('timeupdate', () => {
+			this.setState({
+				progress: 100 * audio.currentTime / audio.duration
+			});
+		});	
 	}
 
 	handleClick(album){
@@ -68,7 +75,7 @@ export default class extends React.Component {
 
 		const singleAlbumView = <SingleAlbum album={this.state.selectedAlbum} start={this.start} pause = {this.pause} currentSong={this.state.currentSong} isPlaying = {this.state.isPlaying}/>;
 
-		const footerView = <Footer album={this.state.selectedAlbum} currentSong = {this.state.currentSong} isPlaying = {this.state.isPlaying} start = {this.start} pause = {this.pause} />;
+		const footerView = <Footer album={this.state.selectedAlbum} currentSong = {this.state.currentSong} isPlaying = {this.state.isPlaying} start = {this.start} pause = {this.pause} progress= {this.state.progress} />;
 
 
 		return ( 

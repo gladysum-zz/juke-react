@@ -28,7 +28,7 @@ export default function Footer(props){
 		const nextSong = songs[nextSongIndex];
 		props.start(nextSong);
 	}
-
+console.log(props.progress);
 	return (
 		 <div>
 		       <footer>
@@ -45,7 +45,7 @@ export default function Footer(props){
 		         </div>
 		         <div className="bar">
 		           <div className="progress">
-		             <div className="progress-bar"></div>
+		             <div className="progress-bar" style = {{width: `${props.progress}%`}}></div>
 		           </div>
 		         </div>
 		       </footer>
